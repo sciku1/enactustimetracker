@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Enactus Back End</title>
+	<link rel="stylesheet" type="text/css" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
+	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+	<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
+</head>
+<body>
+<div class="container">
+<div class="failed" id="failed"></div>
+	<form id="form" class="login" role="login" method="POST" action="src/login.php">
+	    <h1>Enactus Login</h1>
+	    <input type="email" name="email" id="email" />
+	    <input type="password" name="password" id="password" />
+	    <p class="button" id="submit">Submit</p>
+	</form>
+</div>
+
+<script type="text/javascript" src="js/login.js"></script>
+</body>
+</html>
