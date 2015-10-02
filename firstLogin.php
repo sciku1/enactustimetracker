@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 if ($_SESSION["loggedin"] === 1) {
 	header("Location: login.html");
@@ -20,7 +20,4 @@ if ($_SESSION["loggedin"] === 1) {
 	</nav>
 	
 </div>
-<script type="text/javascript" src="js/members.js"></script>
-<script>
-</script>
 </html>

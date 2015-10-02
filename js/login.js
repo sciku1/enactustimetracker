@@ -7,15 +7,14 @@ function onSignIn(googleUser) {
 	if (checkMRU(profile.getEmail()) === true ){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
+			console.log(xhttp.readyState);
 				if (xhttp.readyState == 4 && xhttp.status == 200) {
 					console.log(xhttp.responseText);
 					if (xhttp.responseText == "loggedin") {
-						console.log("yay");
+						console.log(xhttp.responseText);
 						window.location.assign("member.php");
 					} else if (xhttp.responseText == "firsttime" ) {
-						window.location.assign("member.php?firsttime=true");	
-					} else {
-						console.log("this is horrid.");
+						window.location.assign("firstLogin.php");	
 					}
 		 }
 	};
