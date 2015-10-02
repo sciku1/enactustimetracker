@@ -1,22 +1,22 @@
 function onSignIn(googleUser) {
-	// Useful data for your client-side scripts:
-	
 	var profile = googleUser.getBasicProfile();
 	var email = profile.getEmail();
 	var fullname = profile.getName();
 	var parameters="email="+email+"&fullname="+fullname;
-			
+		
 	if (checkMRU(profile.getEmail()) === true ){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
-		if (xhttp.readyState == 4 && xhttp.status == 200) {
-			console.log(xhttp.responseText);
-				if (xhttp.responseText == "loggedin") {
-					console.log("is it getting here?");
-					window.location.assign("member.php");
-				} else if (xhttp.responseText == "firsttime" ) {
-					window.location.assign("member.php?firsttime=true");	
-				}
+				if (xhttp.readyState == 4 && xhttp.status == 200) {
+					console.log(xhttp.responseText);
+					if (xhttp.responseText == "loggedin") {
+						console.log("yay");
+						window.location.assign("member.php");
+					} else if (xhttp.responseText == "firsttime" ) {
+						window.location.assign("member.php?firsttime=true");	
+					} else {
+						console.log("this is horrid.");
+					}
 		 }
 	};
 	xhttp.open("POST", "src/login.php", true);
@@ -40,7 +40,4 @@ function checkMRU(email) {
 	}
 }
 
-function sorry() {
-	var div = ""
-}
 

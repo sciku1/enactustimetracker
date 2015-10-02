@@ -2,7 +2,7 @@
 	var xhttp = new XMLHttpRequest();
 	xhttp.onreadystatechange = function() {
 	if (xhttp.readyState == 4 && xhttp.status == 200) {
-	     var uid = xhttp.responseText;
+	     var uid = xhttp.responseText[0];
 			createPage(uid);
 	 }
 };
@@ -15,6 +15,18 @@ function createPage(uid) {
 	h1.id = "heading";
 	h1.innerHTML = "Enactus Members Area";
 	document.getElementById("container").appendChild(h1);
+	var projects = [
+
+    "Blueprint For Life",
+    "Ace",
+    "Empower U",
+    "Recreate",
+    "Ugrow",
+    "Project Stoke",
+    "Green Cup"
+
+];
+	quickOptions(projects);
 	//check and build for total hours
 	checkTotal(uid);
 	// check and build pending stuff
@@ -140,6 +152,42 @@ function buildTable(info) {
 	var container = document.getElementById("container");
 	div.appendChild(table);
 	container.appendChild(div);
+}
+
+function quickOptions(projects) {
+	// init quickoptions div
+	var quickOptions = document.createElement("div");
+	quickOptions.id = "quickOptions";
+	document.getElementById("container").appendChild(quickOptions);
+	// heading 
+	var h2 = document.createElement("h2");
+	h2.innerHTML = "Quick Links";
+	quickOptions.appendChild(h2);
+	// 30 min GM 
+	var GM_30 = document.createElement("div");
+	GM_30.id = "GM_30";
+	GM_30.className = "btn";
+	GM_30.innerHTML = "GM 30 Minutes";
+	GM_30.setAttribute("data-identifier", "GM-30");
+	document.getElementById("quickOptions").appendChild(GM_30);
+	// 1 hour Meeting
+	var GM_60 = document.createElement("div");
+	GM_60.id = "GM_60";
+	GM_60.className = "btn";
+	GM_60.innerHTML = "GM 60 Minutes";
+	GM_60.setAttribute("data-identifier", "GM_60");
+	document.getElementById("quickOptions").appendChild(GM_60); 
+	// for all projects someone is in, show this 
+	for (var i = 0; projects.length > i; i++) {
+		var btn = document.createElement("div");
+		var proj = projects[i];
+		btn.id = proj;
+		btn.className = "btn";
+		var str = "PM_" + proj.split(' ').join('_');
+		btn.innerHTML = proj;
+		btn.setAttribute("data-identifier", str );
+		document.getElementById("quickOptions").appendChild(btn); 
+	}
 }
 
 
