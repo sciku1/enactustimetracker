@@ -1,27 +1,41 @@
 <?php
 include '../conn/conn.php';
 session_start();
-$pw = md5($_POST['password']);
 if (preg_match("/.+\@mtroyal\.ca/", $_POST['email'])) { 
-	$q = "SELECT * FROM users WHERE email=:email AND pw=:pw";
+	$q = "SELECT * FROM users WHERE email=:email";
 	$sql = $conn->prepare($q);
 	$sql->BindParam(":email", $_POST['email']);
-	$sql->BindParam(":pw", $pw );
-	if ($sql->execute()) {
+	$sql->execute();
+	$results = $sql->fetchAll(PDO::FETCH_ASSOC);
+	print_r($results);
+	if (count($results) > 0) {
 		$_SESSION["email"] = $_POST['email'];
 		$_SESSION["loggedin"] = true;
 		$results = $sql->fetch();
 		$_SESSION["uid"] = $results["uid"];
 		if (intval($results["priviledge"]) === 0) {
-			print_r($_SESSION["loggedin"]);
-			header("Location: ../member.php");
-		} else if (intval($results["priviledge"]) === 1) {
-			header("Location: admin.php");
+			print_r(json_encode("loggedin"));
 			
-		}
+		} else if (intval($results["priviledge"]) === 1) {
+			print_r("admin.php");
+			
+		} 
 
 	} else {
-		header("Location: error.html");
+		// If the user is not there, add them. 
+			$q = "INSERT INTO users (fullname, email, priviledge) VALUES (:fullname, :email, 0)";
+			$sql = $conn->prepare($q);
+			$sql->BindParam(":fullname",$_POST["fullname"] );
+			$sql->BindParam(":email", $_POST["email"]);
+			if ($sql->execute()) {
+			$_SESSION["email"] = $_POST['email'];
+			$_SESSION["loggedin"] = true;
+			$results = $sql->fetch();
+			$_SESSION["uid"] = $results["uid"];
+			print_r("firsttime");			
+		} else {
+			print_r($sql->errorInfo());
+		}
 	}
 }
 ?>

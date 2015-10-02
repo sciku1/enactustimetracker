@@ -1,20 +1,46 @@
-var button = document.getElementById("submit");
-button.addEventListener("click", function () {
-	if (validate(email) && document.getElementById("password").value !== "") {
-		document.getElementById("form").submit();
-	} else { 
-		document.getElementById("failed").style.display = "block";
-		document.getElementById("failed").innerHTML = "There was a problem logging in! Please try again.";
-	}
+function onSignIn(googleUser) {
+	// Useful data for your client-side scripts:
 	
-});
+	var profile = googleUser.getBasicProfile();
+	var email = profile.getEmail();
+	var fullname = profile.getName();
+	var parameters="email="+email+"&fullname="+fullname;
+			
+	if (checkMRU(profile.getEmail()) === true ){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			console.log(xhttp.responseText);
+				if (xhttp.responseText == "loggedin") {
+					console.log("is it getting here?");
+					window.location.assign("member.php");
+				} else if (xhttp.responseText == "firsttime" ) {
+					window.location.assign("member.php?firsttime=true");	
+				}
+		 }
+	};
+	xhttp.open("POST", "src/login.php", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(parameters);
 
-function validate(email, pass) {
-	var reg = /.+\@mtroyal\.ca/g;
-	var email = document.getElementById("email").value;
-	if (reg.test(email)) {
-		return true;
 	} else {
+		// handling if non mru
+		console.log("fuck off");		
+	}
+
+};
+
+function checkMRU(email) {
+	var re = /.+@mtroyal.ca/;
+	var ans = re.exec(email);
+	if (ans === null) {
 		return false;
+	} else {
+		return true;
 	}
 }
+
+function sorry() {
+	var div = ""
+}
+

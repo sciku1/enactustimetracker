@@ -1,24 +1,19 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Enactus Back End</title>
-	<link rel="stylesheet" type="text/css" href="css/normalize.css">
-	<link rel="stylesheet" type="text/css" href="css/login.css">
-	<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-	<meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, maximum-scale=1.0" />
-</head>
-<body>
-<div class="container">
-<div class="failed" id="failed"></div>
-	<form id="form" class="login" role="login" method="POST" action="src/login.php">
-	    <h1>Enactus Login</h1>
-	    <input type="email" name="email" id="email" />
-	    <input type="password" name="password" id="password" />
-	    <p class="button" id="submit">Submit</p>
-	</form>
-</div>
-
-<script type="text/javascript" src="js/login.js"></script>
-</body>
+<html lang="en">
+  <head>
+    <meta name="google-signin-client_id" content="799685841780-081jvai8o99t35va1dvpjmm789hv31l4.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+	<link rel="stylesheet" type="text/css" href="css/login.css">  
+  </head>
+  <body>
+  	<div class="container">
+  		<div class="login">
+  			<div class="block">
+  				<h1>Enactus Login</h1>
+    			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+    		</div>
+    	</div>
+    </div>
+    <script type="text/javascript" src="js/login.js"></script>
+  </body>
+</html>
 </html>
