@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if ($_SESSION["loggedin"] === 1) {
+if ($_SESSION["loggedin"] !== true) {
 	header("Location: login.html");
 }?>
 <!DOCTYPE html>
@@ -16,7 +16,7 @@ if ($_SESSION["loggedin"] === 1) {
 <body>
 <div id="container" class="container">
 	<nav>
-		<ul><a href="member.php"><li>Home</li></a><a href="customEntry.php"><li>Custom Entry</li></a><a href="modifyProjects.php"><li>Contact</li></a></ul>
+		<ul><a href="member.php"><li>Home</li></a><a href="customEntry.php"><li>Custom Entry</li></a><a href="changeProjects.php"><li>Modify Projects</li></a><a href="logout.php"><li>Logout</li></a></ul>
 	</nav>
 	
 </div>

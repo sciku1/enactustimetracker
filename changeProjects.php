@@ -1,9 +1,8 @@
 <?php
 session_start();
-if ($_SESSION["loggedin"] === 1) {
+if ($_SESSION["loggedin"] !== true) {
 	header("Location: login.html");
 }?>
-<!DOCTYPE html>
 <html>
 	<head>
 	<title>Enactus Back End</title>
@@ -16,10 +15,9 @@ if ($_SESSION["loggedin"] === 1) {
 <body>
 <div id="container" class="container">
 	<nav>
-		<ul><a href="member.php"><li>Home</li></a><a href="customEntry.php"><li>Custom Entry</li></a></ul>
+		<ul><a href="member.php"><li>Home</li></a><a href="customEntry.php"><li>Custom Entry</li></a><a href="changeProjects.php"><li>Modify Projects</li></a><a href="logout.php"><li>Logout</li></a></ul>
 	</nav>
-	<h1>Hi!</h1>
-	<p>We see it's your first time logging in. Indicate which teams you are a part of.</p>
+	<h1>Please indicate which projects you're a part of.</h1>
 	<form method="POST" action="src/setProjects.php" id="checklist">
 		
 	</form>
