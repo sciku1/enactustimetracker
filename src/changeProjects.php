@@ -15,7 +15,7 @@ if ($_SESSION["loggedin"] !== true) {
 <body>
 <div id="container" class="container">
 	<nav>
-		<ul><a href="member.php"><li>Home</li></a><a href="customEntry.php"><li>Custom Entry</li></a><a href="modifyProjects.php"><li>Contact</li></a></ul>
+		<ul><a href="member.php"><li>Home</li></a><a href="customEntry.php"><li>Custom Entry</li></a></ul>
 	</nav>
 	<h1>Please indicate which projects you're a part of.</h1>
 	<form method="POST" action="src/setProjects.php" id="checklist">

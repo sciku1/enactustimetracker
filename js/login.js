@@ -23,8 +23,7 @@ function onSignIn(googleUser) {
 	xhttp.send(parameters);
 
 	} else {
-		// handling if non mru
-		console.log("fuck off");		
+		// handling if non mru		
 	}
 
 };

@@ -1,8 +1,9 @@
 <?php 
 session_start();
-if ($_SESSION["loggedin"] !== true) {
+if (($_SESSION["loggedin"] !== true ) || ($_SESSION["priviledge"] > 0)) {
 	header("Location: login.html");
-}
+} 
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,7 +22,7 @@ if ($_SESSION["loggedin"] !== true) {
 	</nav>
 	
 </div>
-<script type="text/javascript" src="js/members.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
 <script>
 </script>
 </html>

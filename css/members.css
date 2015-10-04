@@ -38,7 +38,6 @@ a {
 .prettytable {
 	margin:0px;padding:0px;
 	width:100%;
-	box-shadow: 10px 10px 5px #888888;
 	border:1px solid #000000;
 	
 	-moz-border-radius-bottomleft:0px;
@@ -83,7 +82,7 @@ a {
 }.prettytable tr:hover td{
 	
 }
-.prettytable tr:nth-child(odd){ background-color:#aad4ff; }
+.prettytable tr:nth-child(odd){ background-color:#fff656; }
 .prettytable tr:nth-child(even)    { background-color:#ffffff; }.prettytable td{
 	vertical-align:middle;
 	
@@ -92,7 +91,7 @@ a {
 	border-width:0px 1px 1px 0px;
 	text-align:left;
 	padding:7px;
-	font-size:10px;
+	font-size:18px;
 	font-family:Arial;
 	font-weight:normal;
 	color:#000000;
@@ -104,25 +103,25 @@ a {
 	border-width:0px 0px 0px 0px;
 }
 .prettytable tr:first-child td{
-		background:-o-linear-gradient(bottom, #005fbf 5%, #003f7f 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #005fbf), color-stop(1, #003f7f) );
-	background:-moz-linear-gradient( center top, #005fbf 5%, #003f7f 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#005fbf", endColorstr="#003f7f");	background: -o-linear-gradient(top,#005fbf,003f7f);
+		background:-o-linear-gradient(bottom, #fed622 5%, #faff84 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fed622), color-stop(1, #faff84) );
+	background:-moz-linear-gradient( center top, #fed622 5%, #faff84 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#fed622", endColorstr="#faff84");	background: -o-linear-gradient(top,#fed622,faff84);
 
-	background-color:#005fbf;
+	background-color:#fed622;
 	border:0px solid #000000;
 	text-align:center;
 	border-width:0px 0px 1px 1px;
-	font-size:14px;
+	font-size:22px;
 	font-family:Arial;
 	font-weight:bold;
 	color:#ffffff;
 }
 .prettytable tr:first-child:hover td{
-	background:-o-linear-gradient(bottom, #005fbf 5%, #003f7f 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #005fbf), color-stop(1, #003f7f) );
-	background:-moz-linear-gradient( center top, #005fbf 5%, #003f7f 100% );
-	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#005fbf", endColorstr="#003f7f");	background: -o-linear-gradient(top,#005fbf,003f7f);
+	background:-o-linear-gradient(bottom, #fed622 5%, #faff84 100%);	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #fed622), color-stop(1, #faff84) );
+	background:-moz-linear-gradient( center top, #fed622 5%, #faff84 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr="#fed622", endColorstr="#faff84");	background: -o-linear-gradient(top,#fed622,faff84);
 
-	background-color:#005fbf;
+	background-color:#fed622;
 }
 .prettytable tr:first-child td:first-child{
 	border-width:0px 0px 1px 0px;
@@ -130,7 +129,6 @@ a {
 .prettytable tr:first-child td:last-child{
 	border-width:0px 0px 1px 1px;
 }
-
 .btn {
   -webkit-box-shadow: 3px 3px 10px #666666;
   -moz-box-shadow: 3px 3px 10px #666666;
@@ -189,3 +187,50 @@ a {
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
 }
+input[type="text"] {
+  padding: 10px;
+  border: solid 1px #fff;
+  box-shadow: inset 1px 1px 2px 0 #707070;
+  transition: box-shadow 0.3s;
+}
+input[type="text"]:focus,
+input[type="text"].focus {
+  box-shadow: inset 1px 1px 2px 0 #c9c9c9;
+}
+ 
+.submit {
+	-webkit-box-shadow:rgba(0,0,0,0.98) 0 1px 0 0;
+	-moz-box-shadow:rgba(0,0,0,0.98) 0 1px 0 0;
+	box-shadow:rgba(0,0,0,0.98) 0 1px 0 0;
+	background-color:#EEE;
+	border-radius:0;
+	-webkit-border-radius:0;
+	-moz-border-radius:0;
+	border:1px solid #999;
+	color:#666;
+	font-family:'Lucida Grande',Tahoma,Verdana,Arial,Sans-serif;
+	font-size:11px;
+	font-weight:700;
+	padding:8px 24px;
+	margin:10px;
+	cursor:pointer;
+	display:inline-block;
+}
+
+form > input {
+	margin:10px;
+}
+
+form select {
+   background: white;
+   width: 268px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   border: 4px;
+   border-color:black;
+   border-radius: 0;
+   height: 34px;
+   margin:10px;
+   -webkit-appearance: none;
+   }

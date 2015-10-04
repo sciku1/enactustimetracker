@@ -10,7 +10,8 @@ if ($sql->execute()) {
 		$_SESSION["email"] = $_POST['email'];
 		$_SESSION["loggedin"] = true;
 		$_SESSION["uid"] = $results["uid"];
-		print_r("loggedin");
+		$_SESSION["priviledge"] = $results["priviledge"];
+ 		print_r("loggedin");
 	} else if ($results === false){
 		// If the user is not there, add them.
 			$q = "INSERT INTO users (fullname, email, totalhours, projectsjson, priviledge) VALUES (:fullname, :email, 0, \"{}\"	 , 0)";

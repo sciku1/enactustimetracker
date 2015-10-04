@@ -9,24 +9,14 @@
 xhttp.open("POST", "src/getuid.php", true);
 xhttp.send();
 })();
+
 function createPage(uid) {
 	// Create the Heading
 	var h1 = document.createElement("h1");
 	h1.id = "heading";
 	h1.innerHTML = "Enactus Members Area";
 	document.getElementById("container").appendChild(h1);
-	var projects = [
-
-    "Blueprint For Life",
-    "Ace",
-    "Empower U",
-    "Recreate",
-    "Ugrow",
-    "Project Stoke",
-    "Green Cup"
-
-];
-	quickOptions(projects);
+	getProjectsFromDB(uid);
 	//check and build for total hours
 	checkTotal(uid);
 	// check and build pending stuff
@@ -51,6 +41,7 @@ function checkTotal(uid) {
 function buildTotal(total) {
 	var h2 = document.createElement("h2");
 	h2.id = "totalHours";
+	var total = toHours(total);
 	h2.innerHTML = "You have a total of: " + total + " hours.";
 	document.getElementById("container").appendChild(h2);
 	
@@ -129,7 +120,7 @@ function buildTable(info) {
 	var date = document.createElement("td");
 	date.innerHTML = "Date";
 	var hours = document.createElement("td");
-	hours.innerHTML = "Total Hours";
+	hours.innerHTML = "Total Time";
 	tr.appendChild(events);
 	tr.appendChild(date);
 	tr.appendChild(hours);
@@ -168,28 +159,85 @@ function quickOptions(projects) {
 	GM_30.id = "GM_30";
 	GM_30.className = "btn";
 	GM_30.innerHTML = "GM 30 Minutes";
-	GM_30.setAttribute("data-identifier", "GM-30");
+	GM_30.setAttribute("data-identifier", "GM");
+	GM_30.setAttribute("data-time", "30");
+	GM_30.setAttribute("data-type", "General");
+	GM_30.setAttribute("onclick", "insertTime(this)");
 	document.getElementById("quickOptions").appendChild(GM_30);
 	// 1 hour Meeting
 	var GM_60 = document.createElement("div");
 	GM_60.id = "GM_60";
 	GM_60.className = "btn";
 	GM_60.innerHTML = "GM 60 Minutes";
-	GM_60.setAttribute("data-identifier", "GM_60");
+	GM_60.setAttribute("data-identifier", "GM");
+	GM_60.setAttribute("data-time", "60");
+	GM_60.setAttribute("data-type", "General");
+	GM_60.setAttribute("onclick", "insertTime(this)");
 	document.getElementById("quickOptions").appendChild(GM_60); 
 	// for all projects someone is in, show this 
 	for (var i = 0; projects.length > i; i++) {
 		var btn = document.createElement("div");
 		var proj = projects[i];
-		btn.id = proj;
+		btn.id = proj + "_30" ;
 		btn.className = "btn";
 		var str = "PM_" + proj.split(' ').join('_');
-		btn.innerHTML = proj;
-		btn.setAttribute("data-identifier", str );
-		document.getElementById("quickOptions").appendChild(btn); 
+		btn.innerHTML = proj + " 30 Minutes";
+		btn.setAttribute("data-identifier", proj);
+		btn.setAttribute("data-time", "30");
+		btn.setAttribute("data-type", "30");
+		btn.setAttribute("onclick", "insertTime(this)");
+		document.getElementById("quickOptions").appendChild(btn);
+		var btn = document.createElement("div");
+		var proj = projects[i];
+		btn.className = "btn";
+		var str = "PM_" + proj.split(' ').join('_') + "_60";
+		btn.innerHTML = proj + " 60 Minutes";
+		btn.id = str;
+		btn.setAttribute("data-identifier", proj);
+		btn.setAttribute("data-time", "60");
+		btn.setAttribute("data-type", "60");
+		btn.setAttribute("onclick", "insertTime(this)");
+		document.getElementById("quickOptions").appendChild(btn);  
 	}
 }
 
+function getProjectsFromDB(uid) {
+	var params = "uid=" + uid;
+	var xhttp = new XMLHttpRequest;
+	xhttp.onreadystatechange = function () {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			var projects = JSON.parse(xhttp.responseText);
+			quickOptions(projects);
+		}
+	};
+	xhttp.open("POST", "src/getProjects.php", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(params);
+}
 
+function insertTime(element) {
+	var identifier = element.getAttribute("data-identifier");
+	var time = element.getAttribute("data-time");
+	var type = element.getAttribute("data-type");
+	var params = "event=" + identifier + "&time=" + time + "&type=" + type;
+	var xhttp = new XMLHttpRequest;
+	xhttp.onreadystatechange = function () {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			if (xhttp.responseText === "success") {
+				window.location.assign("success.html");
+			}
+		}
+	}
+	xhttp.open("POST", "src/addtime.php", true);
+	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xhttp.send(params);
+}
 
-
+function toHours(min) {
+	if (min >= 60) {
+		var hours = Math.floor( min / 60);          
+	    return hours;
+	} else {
+		return min;
+	}
+}
