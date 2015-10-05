@@ -59,8 +59,8 @@ function buildTable(info) {
 		var deny = document.createElement("td");
 		deny.innerHTML = "Deny";
 		deny.className = "deny";
-		approve.setAttribute("data-decide", "approve");
-		approve.setAttribute("onclick", "decide(this)");
+		deny.setAttribute("data-decide", "deny");
+		deny.setAttribute("onclick", "decide(this)");
 		tr.appendChild(deny);
 		table.appendChild(tr);
 	}
@@ -72,7 +72,7 @@ function buildTable(info) {
 function decide(div) {
 	var parent = div.parentNode;
 	var req = parent.getAttribute("data-reqid");
-	console.log(req);
+	var choice = div.getAttribute("data-decide");
 	var params = "reqid=" + req;
 	var xhttp = new XMLHttpRequest;
 	xhttp.onreadystatechange = function () {
@@ -80,10 +80,18 @@ function decide(div) {
 			console.log(xhttp.responseText);
 		}
 	}
-	xhttp.open("POST", "src/approve.php", true);
-	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-	xhttp.send(params);
+	if (choice == "approve") {
+		console.log("approve");
+		xhttp.open("POST", "src/approve.php", true);
+		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhttp.send(params);
+	} else if (choice == "deny") {
+		console.log("deny");
+		xhttp.open("POST", "src/denied.php", true);
+		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhttp.send(params);
+	}
+
 	var grandparent = parent.parentNode;
-	console.log(grandparent);
 	grandparent.removeChild(parent);
 }
