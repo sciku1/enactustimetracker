@@ -78,6 +78,7 @@ function checkApproved() {
 				h2.innerHTML = "Approved Requests";
 				document.getElementById("container").appendChild(h2);
 				// Creating the headings
+				console.log(xhttp.responseText[0]);
 				buildTable(xhttp.responseText); 		
 			}	
 		}
@@ -121,12 +122,16 @@ function buildTable(info) {
 	date.innerHTML = "Date";
 	var hours = document.createElement("td");
 	hours.innerHTML = "Total Time";
+	var project = document.createElement("td");
+	project.innerHTML = "Project";
 	tr.appendChild(events);
 	tr.appendChild(date);
 	tr.appendChild(hours);
+	tr.appendChild(project);
 	table.appendChild(tr);
 	div.appendChild(table);	
 	for (var i = 0; i < info.length; i++) {
+		console.log(info);
 		var tr = document.createElement("tr");
 		tr.id = info[i]["reqid"];
 		var events = document.createElement("td");
@@ -138,6 +143,9 @@ function buildTable(info) {
 		var hours = document.createElement("td");
 		hours.innerHTML = info[i]["hours"];
 		tr.appendChild(hours);
+		var project = document.createElement("td");
+		project.innerHTML = info[i]["project"];
+		tr.appendChild(project);
 		table.appendChild(tr);
 	}
 	var container = document.getElementById("container");
@@ -184,7 +192,7 @@ function quickOptions(projects) {
 		btn.innerHTML = proj + " 30 Minutes";
 		btn.setAttribute("data-identifier", proj);
 		btn.setAttribute("data-time", "30");
-		btn.setAttribute("data-type", "30");
+		btn.setAttribute("data-type", proj);
 		btn.setAttribute("onclick", "insertTime(this)");
 		document.getElementById("quickOptions").appendChild(btn);
 		var btn = document.createElement("div");
@@ -195,7 +203,7 @@ function quickOptions(projects) {
 		btn.id = str;
 		btn.setAttribute("data-identifier", proj);
 		btn.setAttribute("data-time", "60");
-		btn.setAttribute("data-type", "60");
+		btn.setAttribute("data-type", proj);
 		btn.setAttribute("onclick", "insertTime(this)");
 		document.getElementById("quickOptions").appendChild(btn);  
 	}

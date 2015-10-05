@@ -1,6 +1,6 @@
 <?php 
 $dsn = 'mysql:dbname=enactus; host=localhost';
-$user = 'root';
-$pass = '';
+$user = 'timlopezme';
+$pass = 'ttii123$';
 $conn = new PDO($dsn, $user, $pass);
 ?>

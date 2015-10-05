@@ -1,6 +1,6 @@
 <?php 
 session_start();
-if (($_SESSION["loggedin"] !== true ) || ($_SESSION["priviledge"] > 0)) {
+if (($_SESSION["loggedin"] !== true ) || ($_SESSION["priviledge"] < 1)) {
 	header("Location: login.html");
 } 
 

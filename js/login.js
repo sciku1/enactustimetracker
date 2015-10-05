@@ -3,19 +3,19 @@ function onSignIn(googleUser) {
 	var email = profile.getEmail();
 	var fullname = profile.getName();
 	var parameters="email="+email+"&fullname="+fullname;
-		
+	console.log(parameters);
 	if (checkMRU(profile.getEmail()) === true ){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
-			console.log(xhttp.readyState);
 				if (xhttp.readyState == 4 && xhttp.status == 200) {
-					console.log(xhttp.responseText);
 					if (xhttp.responseText == "loggedin") {
-						console.log(xhttp.responseText);
 						window.location.assign("member.php");
 					} else if (xhttp.responseText == "firsttime" ) {
 						window.location.assign("firstLogin.php");	
+					} else {
+						console.log("something else is wrong.");
 					}
+
 		 }
 	};
 	xhttp.open("POST", "src/login.php", true);
@@ -23,6 +23,7 @@ function onSignIn(googleUser) {
 	xhttp.send(parameters);
 
 	} else {
+		window.location.assign("nonMRU.html");
 		// handling if non mru		
 	}
 

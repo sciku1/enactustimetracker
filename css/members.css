@@ -1,4 +1,4 @@
-body {
+body {	
 	background-color:#FFFFAA;
 }
 .container { 
@@ -137,10 +137,12 @@ a {
   color: #ffffff;
   font-size: 24px;
   background: #000;
-  padding: 30px 20px 30px 20px;
+  padding: 15px 7.5px 15px 7.5px;
   border: solid #fed622 4px;
   text-decoration: none;
   display:inline-block;
+  width:100%;
+  text-align:center;
 }
 
 .btn:hover {
@@ -234,3 +236,23 @@ form select {
    margin:10px;
    -webkit-appearance: none;
    }
+
+.approve { 
+	background-color:green;
+	cursor:pointer;
+}
+
+.approve:hover { 
+	background-color:#33CC33;
+	cursor:pointer;
+}
+
+.deny {
+	background-color:red;
+	cursor:pointer;
+}
+
+.deny:hover { 
+	background-color:#FF6600;
+	cursor:pointer;
+}

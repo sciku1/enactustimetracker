@@ -1,7 +1,7 @@
 <?php
 session_start();
 include '../conn/conn.php';
-$q = "SELECT * FROM pending WHERE fromMember=:uid";
+$q = "SELECT * FROM pending WHERE fromMember=:uid ORDER BY date";
 $sql = $conn->prepare($q);
 $sql->BindParam(":uid", $_SESSION["uid"]);
 if ($sql->execute()) {
