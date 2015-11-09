@@ -10,14 +10,16 @@ if ($sql->execute()) {
 	$results = $sql->fetch(PDO::FETCH_ASSOC);
 	$event = $results["event"];
 	$date = $results["date"];
+	$eventDate = $results["eventDate"];
 	$hours = $results["hours"];
 	$fromMember = $results["fromMember"];
 	$reqid = $results["reqid"];
 	$project = $results["project"];
-	$q = "INSERT INTO approved (event, date, hours, reqid, project, fromMember, approvedBy) VALUES (:event, :date, :hours, :reqid, :project, :fromMember, :approvedBy)";
+	$q = "INSERT INTO approved (event, date, eventDate ,hours, reqid, project, fromMember, approvedBy) VALUES (:event, :date, :eventDate ,:hours, :reqid, :project, :fromMember, :approvedBy)";
 	$sql = $conn->prepare($q);
 	$sql->BindParam(":event", $event);
 	$sql->BindParam(":date", $date);
+	$sql->BindParam(":eventDate", $eventDate);
 	$sql->BindParam(":hours", $hours);
 	$sql->BindParam(":project", $project);
 	$sql->BindParam(":reqid", $reqid);

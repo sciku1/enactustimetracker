@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if ($_SESSION["loggedin"] !== true) {
-	header("Location: login.html");
+	header("Location: index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -17,7 +17,7 @@ if ($_SESSION["loggedin"] !== true) {
 <body>
 <div id="container" class="container">
 	<nav>
-		<ul><a href="member.php"><li>Home</li></a><a href="customEntry.php"><li>Custom Entry</li></a><a href="changeProjects.php"><li>Modify Projects</li></a><a href="logout.php"><li>Logout</li></a><?php if ($_SESSION["loggedin"] === true && $_SESSION["priviledge"] > 0) { echo "<a href='admin.php'><li>Admin</li></a>"; } ?></ul>
+		<ul><a href="member.php"><li>Home</li></a><a href="customEntry.php"><li>Custom Entry</li></a><a href="changeProjects.php"><li>Modify Projects</li></a><a href="logout.php"><li>Logout</li></a><?php if ($_SESSION["loggedin"] === true && $_SESSION["priviledge"] > 0) { echo "<a href='admin.php'><li>Admin</li></a>"; } if ($_SESSION["priviledge"] > 1 ) { echo "<a href='master.php'><li>Master</li></a><a href='userManagement.php'><li>Users</li></a>";} ?></ul>
 	</nav>
 	
 </div>

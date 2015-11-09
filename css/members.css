@@ -141,7 +141,7 @@ a {
   border: solid #fed622 4px;
   text-decoration: none;
   display:inline-block;
-  width:100%;
+  width:auto;
   text-align:center;
 }
 
@@ -223,7 +223,7 @@ form > input {
 	margin:10px;
 }
 
-form select {
+form select, #date {
    background: white;
    width: 268px;
    padding: 5px;
@@ -240,6 +240,7 @@ form select {
 .approve { 
 	background-color:green;
 	cursor:pointer;
+	font-size:16px;
 }
 
 .approve:hover { 
@@ -250,9 +251,40 @@ form select {
 .deny {
 	background-color:red;
 	cursor:pointer;
+	font-size:16px;
 }
 
 .deny:hover { 
 	background-color:#FF6600;
 	cursor:pointer;
+}
+
+.all {
+	text-align:center;
+	padding:30px;
+	display:inline-block;
+	border-width: 2px;
+	border-color:black;	
+
+}
+
+.center {
+	text-align:center;
+}
+
+.hours {
+	font-size:16px;
+	color:gray;
+}
+
+.button {
+	padding:10px;
+	background-color:yellow;
+	color:black;
+	border-color:black;
+	border-width:2px;
+}
+
+.button:hover {
+	background-color:lightyellow;
 }

@@ -1,7 +1,7 @@
 <?php 
 session_start();
 if ($_SESSION["loggedin"] !== true) {
-	header("Location: login.html");
+	header("Location: index.php");
 }
 ?>
 <!DOCTYPE html>
@@ -25,6 +25,8 @@ if ($_SESSION["loggedin"] !== true) {
 		<input required id="event" type="text" name="event"><br>
 		<label for="time">Time (Minutes)</label><br>
 		<input required id="time" type="text" name="time"><br>
+		<label for="eventDate">Date</label><br>
+		<input required id="eventDate" type="date" name="eventDate"><br>
 		<label for="dropdown">Indicate it's Category</label><br>
 		<select required name="type" id="dropdown"></select><br>
 		<button class="submit" id="submit">Submit</button>

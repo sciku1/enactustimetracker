@@ -42,7 +42,7 @@ function buildTotal(total) {
 	var h2 = document.createElement("h2");
 	h2.id = "totalHours";
 	var total = toHours(total);
-	h2.innerHTML = "You have a total of: " + total + " hours.";
+	h2.innerHTML = "You have a total of: " + total;
 	document.getElementById("container").appendChild(h2);
 	
 }
@@ -58,6 +58,7 @@ function checkPending() {
 				h2.innerHTML = "Pending Requests";
 				document.getElementById("container").appendChild(h2);
 				// Creating the headings
+				console.log(xhttp.responseText);
 				buildTable(xhttp.responseText);
 				}
  		
@@ -78,7 +79,6 @@ function checkApproved() {
 				h2.innerHTML = "Approved Requests";
 				document.getElementById("container").appendChild(h2);
 				// Creating the headings
-				console.log(xhttp.responseText[0]);
 				buildTable(xhttp.responseText); 		
 			}	
 		}
@@ -92,7 +92,6 @@ function checkDenied(uid) {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
 			if (xhttp.responseText.length >= 3) {
 				// Heading
-				console.log(xhttp.responseText);
 				var h2 = document.createElement("h2");
 				h2.id = "deniedHeading";
 				h2.innerHTML = "Denied Requests";
@@ -108,6 +107,7 @@ function checkDenied(uid) {
 
 function buildTable(info) {
 	info = JSON.parse(info);
+	
 	var div = document.createElement("div");
 	div.className = "prettytable";
 	// table
@@ -119,37 +119,43 @@ function buildTable(info) {
 	var events = document.createElement("td");
 	events.innerHTML = "Event";
 	var date = document.createElement("td");
-	date.innerHTML = "Date";
+	date.innerHTML = "Time Posted";
+	var eventDate = document.createElement("td");
+	eventDate.innerHTML = "Date";
 	var hours = document.createElement("td");
-	hours.innerHTML = "Total Time";
+	hours.innerHTML = "Time Done";
 	var project = document.createElement("td");
 	project.innerHTML = "Project";
 	tr.appendChild(events);
-	tr.appendChild(date);
 	tr.appendChild(hours);
+	tr.appendChild(eventDate);
 	tr.appendChild(project);
+	tr.appendChild(date);
 	table.appendChild(tr);
 	div.appendChild(table);	
 	for (var i = 0; i < info.length; i++) {
-		console.log(info);
 		var tr = document.createElement("tr");
 		tr.id = info[i]["reqid"];
 		var events = document.createElement("td");
 		events.innerHTML = info[i]["event"];
 		tr.appendChild(events);
-		var datePosted = document.createElement("td");
-		datePosted.innerHTML = info[i]["date"];
-		tr.appendChild(datePosted);
 		var hours = document.createElement("td");
 		hours.innerHTML = info[i]["hours"];
 		tr.appendChild(hours);
+		var eventDate = document.createElement("td");
+		eventDate.innerHTML = info[i]["eventDate"];
+		tr.appendChild(eventDate);
+
 		var project = document.createElement("td");
 		project.innerHTML = info[i]["project"];
 		tr.appendChild(project);
+		var datePosted = document.createElement("td");
+		datePosted.innerHTML = info[i]["date"];
+		tr.appendChild(datePosted);
 		table.appendChild(tr);
 	}
 	var container = document.getElementById("container");
-	div.appendChild(table);
+	div.appendChild(table);	
 	container.appendChild(div);
 }
 
@@ -162,16 +168,6 @@ function quickOptions(projects) {
 	var h2 = document.createElement("h2");
 	h2.innerHTML = "Quick Links";
 	quickOptions.appendChild(h2);
-	// 30 min GM 
-	var GM_30 = document.createElement("div");
-	GM_30.id = "GM_30";
-	GM_30.className = "btn";
-	GM_30.innerHTML = "GM 30 Minutes";
-	GM_30.setAttribute("data-identifier", "GM");
-	GM_30.setAttribute("data-time", "30");
-	GM_30.setAttribute("data-type", "General");
-	GM_30.setAttribute("onclick", "insertTime(this)");
-	document.getElementById("quickOptions").appendChild(GM_30);
 	// 1 hour Meeting
 	var GM_60 = document.createElement("div");
 	GM_60.id = "GM_60";
@@ -227,25 +223,40 @@ function insertTime(element) {
 	var identifier = element.getAttribute("data-identifier");
 	var time = element.getAttribute("data-time");
 	var type = element.getAttribute("data-type");
-	var params = "event=" + identifier + "&time=" + time + "&type=" + type;
-	var xhttp = new XMLHttpRequest;
-	xhttp.onreadystatechange = function () {
-		if (xhttp.readyState == 4 && xhttp.status == 200) {
-			if (xhttp.responseText === "success") {
-				window.location.assign("success.html");
+	var eventDate = window.prompt("Please write the date of the meeting:");
+	if (eventDate != null) {
+		var params = "event=" + identifier + "&time=" + time + "&type=" + type + "&eventDate=" + eventDate;
+		var xhttp = new XMLHttpRequest;
+		xhttp.onreadystatechange = function () {
+			if (xhttp.readyState == 4 && xhttp.status == 200) {
+
+				if (xhttp.responseText === "success") {
+
+					window.location.assign("success.php");
+				}
 			}
 		}
-	}
-	xhttp.open("POST", "src/addtime.php", true);
-	xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-	xhttp.send(params);
+		xhttp.open("POST", "src/addtime.php", true);
+		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+		xhttp.send(params);
+	} 
+
 }
 
 function toHours(min) {
 	if (min >= 60) {
-		var hours = Math.floor( min / 60);          
-	    return hours;
+		var hoursInit = min / 60;
+		var hourDecimals = hoursInit - (Math.floor(min/60));
+		var minutes = Math.floor(hourDecimals*10*6);
+		var hours = hoursInit - hourDecimals;
+		if (minutes < 10) {
+			var minutesStr = "0" + minutes.toString(); 
+		} else {
+			var minutesStr = minutes.toString();
+		}
+		var total = hours.toString() + ":" + minutesStr;
+	    return total + " hours";
 	} else {
-		return min;
+		return min + " minutes";
 	}
 }

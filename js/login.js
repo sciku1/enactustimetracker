@@ -14,6 +14,7 @@ function onSignIn(googleUser) {
 						window.location.assign("firstLogin.php");	
 					} else {
 						console.log("something else is wrong.");
+						console.log(xhttp.responseText);
 					}
 
 		 }
@@ -23,7 +24,7 @@ function onSignIn(googleUser) {
 	xhttp.send(parameters);
 
 	} else {
-		window.location.assign("nonMRU.html");
+		window.location.assign("nonMRU.php");
 		// handling if non mru		
 	}
 

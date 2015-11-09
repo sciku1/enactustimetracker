@@ -16,7 +16,9 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
   }
-
+label {
+	font-weight:bold;
+}
 input {
 	display: block;
 	margin: 22px 0;
@@ -26,6 +28,10 @@ input {
 	box-shadow: 3px 3px 5px gray;
 	border-radius: 20px;
 
+}
+
+#username, #pass, button {
+	margin:5px 0;
 }
 
 h1 {

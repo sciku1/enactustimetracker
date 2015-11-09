@@ -1,7 +1,7 @@
 <?php
 session_start();
 if ($_SESSION["loggedin"] === 1) {
-	header("Location: login.html");
+	header("Location: index.php");
 }?>
 <!DOCTYPE html>
 <html>

@@ -10,14 +10,16 @@ if ($sql->execute()) {
 	$results = $sql->fetch(PDO::FETCH_ASSOC);
 	$event = $results["event"];
 	$date = $results["date"];
+	$eventDate = $results["eventDate"];
 	$hours = $results["hours"];
 	$fromMember = $results["fromMember"];
 	$reqid = $results["reqid"];
 	$project = $results["project"];
-	$q = "INSERT INTO denied (event, date, hours, reqid, project, fromMember, deniedBy) VALUES (:event, :date, :hours, :reqid, :project, :fromMember, :deniedBy)";
+	$q = "INSERT INTO denied (event, date, eventDate ,hours, reqid, project, fromMember, deniedBy) VALUES (:event, :date, :eventDate ,:hours, :reqid, :project, :fromMember, :deniedBy)";
 	$sql = $conn->prepare($q);
 	$sql->BindParam(":event", $event);
 	$sql->BindParam(":date", $date);
+	$sql->BindParam(":eventDate", $eventDate);
 	$sql->BindParam(":hours", $hours);
 	$sql->BindParam(":project", $project);
 	$sql->BindParam(":reqid", $reqid);
@@ -35,7 +37,7 @@ if ($sql->execute()) {
 	} else {
 		print_r($sql->errorInfo());
 		echo "ya fucked up the second";
-	}	
+	}		
 } else {
 	echo "ya fucked up the first";
 }

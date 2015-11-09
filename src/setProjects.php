@@ -11,13 +11,13 @@ if ($logged === true) {
 	$sql->BindParam(":projectsjson", $projectsjson);
 	$sql->BindParam(":uid", $uid);
 	if ($sql->execute()) {
-		header("Location: ../success.html");
+		header("Location: ../success.php");
 	} else {
-		header("../error.html");
+		header("../error.php");
 
 	}
 } else {
-	header("Location: ../login.html");
+	header("Location: ../index.php");
 }
 
 
