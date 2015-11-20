@@ -9,6 +9,7 @@
   		<div class="login">
   			<div class="block">
   				<h1>Enactus Login</h1>
+          <p>Please Sign In With your Mount Royal email address.</p>
     			<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
     		</div>
     	</div>

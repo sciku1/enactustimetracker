@@ -55,7 +55,7 @@ function buildTable(info) {
 			var member = document.createElement("td");
 			member.innerHTML = stuff["fullName"];
 			tr.appendChild(member);
-		}
+		};
 		xhttp.open("POST", "src/getMemberName.php", false);
 		xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 		xhttp.send(params);

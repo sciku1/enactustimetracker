@@ -4,7 +4,7 @@ function onSignIn(googleUser) {
 	var fullname = profile.getName();
 	var parameters="email="+email+"&fullname="+fullname;
 	console.log(parameters);
-	if (checkMRU(profile.getEmail()) === true ){
+	if (checkMRU(profile.getEmail()) === true){
 		var xhttp = new XMLHttpRequest();
 		xhttp.onreadystatechange = function() {
 				if (xhttp.readyState == 4 && xhttp.status == 200) {

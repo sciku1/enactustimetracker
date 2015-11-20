@@ -14,7 +14,7 @@ if ($sql->execute()) {
  		print_r("loggedin");
 	} else if ($results === false){
 		// If the user is not there, add them.
-			$q = "INSERT INTO users (fullname, email, totalhours, projectsjson, priviledge) VALUES (:fullname, :email, 0, \"{}\"	 , 0)";
+			$q = "INSERT INTO users (fullname, email, projectsjson, priviledge) VALUES (:fullname, :email, \"{}\", 0)";
 			$sql = $conn->prepare($q);
 			$sql->BindParam(":fullname",$_POST["fullname"] );
 			$sql->BindParam(":email", $_POST["email"]);
@@ -26,6 +26,7 @@ if ($sql->execute()) {
 					$results = $sql->fetch(PDO::FETCH_ASSOC);
 					$_SESSION["uid"] = $results["uid"];
 					$_SESSION["email"] = $results['email'];
+					$_SESSION["priviledge"] = $results["priviledge"];
 					$_SESSION["loggedin"] = true;
 					print_r("firsttime");
 				} 			
@@ -33,9 +34,7 @@ if ($sql->execute()) {
 			print_r($sql->errorInfo());
 		}
 	}
-} else {
-	print_r("COCKS.");
-}
+} 
 
 
 

@@ -16,7 +16,8 @@ function createPage(uid) {
 	h1.id = "heading";
 	h1.innerHTML = "Enactus Members Area";
 	document.getElementById("container").appendChild(h1);
-	getProjectsFromDB(uid);
+	// Get projects a person is part of from the database.
+	getQuickLinks(uid);
 	//check and build for total hours
 	checkTotal(uid);
 	// check and build pending stuff
@@ -180,6 +181,7 @@ function quickOptions(projects) {
 	document.getElementById("quickOptions").appendChild(GM_60); 
 	// for all projects someone is in, show this 
 	for (var i = 0; projects.length > i; i++) {
+		// 30 Minute Version
 		var btn = document.createElement("div");
 		var proj = projects[i];
 		btn.id = proj + "_30" ;
@@ -191,6 +193,7 @@ function quickOptions(projects) {
 		btn.setAttribute("data-type", proj);
 		btn.setAttribute("onclick", "insertTime(this)");
 		document.getElementById("quickOptions").appendChild(btn);
+		// 60 Minute Version
 		var btn = document.createElement("div");
 		var proj = projects[i];
 		btn.className = "btn";
@@ -203,15 +206,41 @@ function quickOptions(projects) {
 		btn.setAttribute("onclick", "insertTime(this)");
 		document.getElementById("quickOptions").appendChild(btn);  
 	}
+	// Lastly, add the custom quick options
+	// First get their options from the database
+	var xhttp = new XMLHttpRequest();
+	xhttp.onreadystatechange = function () {
+		if (xhttp.readyState == 4 && xhttp.status == 200) {
+			customQuickLinks(xhttp.responseText);
+			//console.log(xhttp.responseText);
+		}
+	}
+	xhttp.open("POST", "src/getOptions.php");
+	xhttp.send();
 }
-
-function getProjectsFromDB(uid) {
+function customQuickLinks(arr) {
+	arr = JSON.parse(arr);
+	for (var i = 0; i < arr.length; i++) {
+		console.log(arr[i]["label"]);		
+		var btn = document.createElement("div");
+		btn.id = "custom-" + i;
+		btn.className = "btn";
+		btn.innerHTML = arr[i]["label"];
+		btn.setAttribute("data-identifier", arr[i]["label"]);
+		btn.setAttribute("data-time", arr[i]["time"]);
+		btn.setAttribute("data-type", arr[i]["type"]);
+		btn.setAttribute("onclick", "insertTime(this)");
+		document.getElementById("quickOptions").appendChild(btn);
+	}
+	
+}
+function getQuickLinks(uid) {
 	var params = "uid=" + uid;
 	var xhttp = new XMLHttpRequest;
 	xhttp.onreadystatechange = function () {
 		if (xhttp.readyState == 4 && xhttp.status == 200) {
 			var projects = JSON.parse(xhttp.responseText);
-			quickOptions(projects);
+			quickOptions(projects, uid);
 		}
 	};
 	xhttp.open("POST", "src/getProjects.php", true);
@@ -239,7 +268,7 @@ function insertTime(element) {
 		xhttp.open("POST", "src/addtime.php", true);
 		xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 		xhttp.send(params);
-	} 
+	}
 
 }
 

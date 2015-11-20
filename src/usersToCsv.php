@@ -25,7 +25,7 @@ if ($sql->execute()) {
 }
 
 $fp = fopen($filename, 'w');
-$str = ["Name", "Email", "Status", "Total Time","Projects Involved", "Project Leads In"];
+$str = new array("Name", "Email", "Status", "Total Time","Projects Involved", "Project Leads In");
 fputcsv($fp, $str);
 foreach ($content as $key) {
 	unset($key["uid"]);
